@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>NwT KA-Training</title>
-  <meta name="description" content="Lernseite für die NwT-Klassenarbeit Klasse 9: Technisches Zeichnen, Hebel & Drehmoment, Getriebe, Schaltungen, Stabilität, Seifenblasen, Produktentwicklung.">
-  <meta name="theme-color" content="#d9822b">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E">
+  <title>GK KA-Training</title>
+  <meta name="description" content="Lernseite für die GK-Klassenarbeit Klasse 9 (Baden-Württemberg): Gemeinde, Politikzyklus, Partizipation, Medien, digitale Medien, Operatoren.">
+  <meta name="theme-color" content="#c8372d">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏛️%3C/text%3E%3C/svg%3E">
   <script>
     // Theme früh setzen, damit nichts flackert
     (function () {
       var t = null;
-      try { t = localStorage.getItem('nwt:theme'); } catch (e) {}
+      try { t = localStorage.getItem('gk:theme'); } catch (e) {}
       if (t) t = JSON.parse(t);
       if (!t) t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', t);
@@ -23,11 +23,11 @@
   <header class="topbar">
     <a href="#/" class="brand" aria-label="Zur Startseite">
       <svg class="brand-gear" viewBox="0 0 64 64" aria-hidden="true"><use href="#gear"/></svg>
-      <span>NwT <b>KA-Training</b></span>
+      <span>GK <b>KA-Training</b></span>
     </a>
     <nav class="topnav">
       <a href="#/" data-nav="home">Themen</a>
-      <a href="#/formeln" data-nav="formeln">Formeln</a>
+      <a href="#/spickzettel" data-nav="spick">Spickzettel</a>
       <a href="#/probe-ka" data-nav="probe">Probe-KA</a>
     </nav>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
@@ -39,26 +39,25 @@
   <main id="app" tabindex="-1"></main>
 
   <footer class="footer">
-    <p>NwT Klasse 9 · Lernseite zur Klassenarbeit · Fortschritt wird nur in diesem Browser gespeichert.</p>
+    <p>GK Klasse 9 · Lernseite zur Klassenarbeit am 25.11. · Fortschritt wird nur in diesem Browser gespeichert.</p>
   </footer>
 
   <!-- wiederverwendbares Zahnrad-Symbol -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
       <symbol id="gear" viewBox="0 0 64 64">
-        <path fill="currentColor" d="M27.5 2h9l1.6 7.4a23 23 0 0 1 6 2.5l6.4-4.1 6.4 6.4-4.1 6.4a23 23 0 0 1 2.5 6l7.4 1.6v9l-7.4 1.6a23 23 0 0 1-2.5 6l4.1 6.4-6.4 6.4-6.4-4.1a23 23 0 0 1-6 2.5L36.5 62h-9l-1.6-7.4a23 23 0 0 1-6-2.5l-6.4 4.1-6.4-6.4 4.1-6.4a23 23 0 0 1-2.5-6L1.4 36.5v-9l7.4-1.6a23 23 0 0 1 2.5-6L7.2 13.5l6.4-6.4 6.4 4.1a23 23 0 0 1 6-2.5zM32 21a11 11 0 1 0 0 22 11 11 0 0 0 0-22z"/>
+        <path fill="currentColor" d="M32 3 4 18v6h56v-6zM8 27h8v24H8zm12 0h8v24h-8zm16 0h8v24h-8zm12 0h8v24h-8zM4 54h56v7H4z"/>
       </symbol>
     </defs>
   </svg>
 
-  <script src="content/zeichnen.js"></script>
-  <script src="content/hebel.js"></script>
-  <script src="content/getriebe.js"></script>
-  <script src="content/schaltungen.js"></script>
-  <script src="content/stabilitaet.js"></script>
-  <script src="content/seifenblasen.js"></script>
-  <script src="content/produktentwicklung.js"></script>
-  <script src="content/formeln.js"></script>
+  <script src="content/gemeinde.js"></script>
+  <script src="content/zyklus.js"></script>
+  <script src="content/partizipation.js"></script>
+  <script src="content/medien.js"></script>
+  <script src="content/digital.js"></script>
+  <script src="content/methoden.js"></script>
+  <script src="content/spickzettel.js"></script>
   <script src="js/sims.js"></script>
   <script src="js/app.js"></script>
 </body>

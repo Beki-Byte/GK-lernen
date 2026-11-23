@@ -1,5 +1,5 @@
 /* ===========================================================
-   NwT KA-Training – App (Router, Seiten, Quiz, Fortschritt)
+   GK KA-Training – App (Router, Seiten, Quiz, Fortschritt)
    =========================================================== */
 (function () {
   'use strict';
@@ -10,13 +10,13 @@
   /* ---------- Speicher (robust, falls localStorage blockiert ist) ---------- */
   var store = {
     get: function (k, d) {
-      try { var v = localStorage.getItem('nwt:' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; }
+      try { var v = localStorage.getItem('gk:' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; }
     },
     set: function (k, v) {
-      try { localStorage.setItem('nwt:' + k, JSON.stringify(v)); } catch (e) { /* egal */ }
+      try { localStorage.setItem('gk:' + k, JSON.stringify(v)); } catch (e) { /* egal */ }
     }
   };
-  window.NWT_STORE = store;
+  window.GK_STORE = store;
 
   /* ---------- Hilfsfunktionen ---------- */
   function esc(s) {
@@ -86,8 +86,8 @@
     if (p[0] === 't' && topicById(p[1])) {
       setNav('home');
       renderTopic(topicById(p[1]), p[2] || 'lernen', p[3]);
-    } else if (p[0] === 'formeln') {
-      setNav('formeln'); renderFormeln();
+    } else if (p[0] === 'spickzettel') {
+      setNav('spick'); renderFormeln();
     } else if (p[0] === 'probe-ka') {
       setNav('probe'); renderProbe();
     } else {
@@ -99,7 +99,7 @@
 
   /* ---------- Startseite ---------- */
   function renderHome() {
-    document.title = 'NwT KA-Training';
+    document.title = 'GK KA-Training';
     var cards = TOPICS.map(function (t) {
       var pr = progressOf(t);
       return '<a class="topic-card" href="#/t/' + t.id + '" style="--tc:' + t.color + '">' +
@@ -114,19 +114,19 @@
 
     app.innerHTML =
       '<section class="hero fade-in">' +
-        '<div class="hero-gears" aria-hidden="true">' + gearSvg('g1') + gearSvg('g2') + '</div>' +
-        '<h1>NwT-Klassenarbeit: alles an einem Ort</h1>' +
-        '<p>Wähle ein Thema. Zu jedem Thema gibt es eine Erklärung, Videos, Aufgaben im Stil deiner Arbeitsblätter (mit Lösungen) und ein Quiz.</p>' +
+        '<div class="hero-gears" aria-hidden="true">' + gearSvg('g1') + '</div>' +
+        '<h1>GK-Klassenarbeit: Politik in der Gemeinde & Medien</h1>' +
+        '<p>Wähle ein Thema. Zu jedem Thema gibt es eine Erklärung, Videos, Aufgaben aus deinem Buch und deinen ABs (mit Musterlösungen), Trainer und ein Quiz.</p>' +
         '<ol class="steps"><li>Lernen lesen</li><li>Video schauen</li><li>Aufgaben rechnen</li><li>Quiz</li><li>Probe-KA</li></ol>' +
         '<div class="hero-actions">' +
           '<a class="btn primary" href="#/probe-ka">🎯 Probe-KA starten</a>' +
-          '<a class="btn" href="#/formeln">📐 Formelsammlung</a>' +
+          '<a class="btn" href="#/spickzettel">📋 Spickzettel</a>' +
         '</div>' +
       '</section>' +
       '<div class="section-title"><h2>Themen</h2><span class="muted small">' + TOPICS.length + ' Themen</span></div>' +
       '<div class="topic-grid fade-in">' + cards + '</div>' +
       '<div class="quick-grid">' +
-        '<a class="card quick-card" href="#/formeln"><span class="big">📐</span><div><b>Formelsammlung</b><br><span class="muted small">Alle Formeln auf einen Blick</span></div></a>' +
+        '<a class="card quick-card" href="#/spickzettel"><span class="big">📋</span><div><b>Spickzettel</b><br><span class="muted small">Alle Fachbegriffe auf einen Blick</span></div></a>' +
         '<a class="card quick-card" href="#/probe-ka"><span class="big">🎯</span><div><b>Probe-KA</b><br><span class="muted small">Gemischte Aufgaben aus allen Themen</span></div></a>' +
       '</div>';
   }
@@ -142,7 +142,7 @@
   }
 
   function renderTopic(t, tab, sub) {
-    document.title = t.title + ' · NwT KA-Training';
+    document.title = t.title + ' · GK KA-Training';
     var tabs = tabsFor(t);
     if (!tabs.some(function (x) { return x.id === tab; })) tab = 'lernen';
 
@@ -246,7 +246,7 @@
   }
 
   function renderTasks(t, body) {
-    var intro = '<div class="card" style="margin-bottom:14px"><b>So übst du richtig:</b> Erst selbst auf Papier lösen (gegeben, gesucht, Formel, Rechnung, Antwortsatz), dann die Lösung aufklappen und vergleichen. Hake ab, was du sicher kannst.</div>';
+    var intro = '<div class="card" style="margin-bottom:14px"><b>So übst du richtig:</b> Achte zuerst auf den <b>Operator</b> (nennen, erläutern, bewerten …). Schreib deine Antwort auf Papier, dann klapp die Musterlösung auf und vergleiche. Hake ab, was du sicher kannst.</div>';
     body.innerHTML = intro + t.tasks.map(function (task, i) { return taskCard(t, task, i); }).join('');
     figs(body);
     body.addEventListener('change', function (e) {
@@ -329,7 +329,7 @@
 
   /* ---------- Formelsammlung ---------- */
   function renderFormeln() {
-    document.title = 'Formelsammlung · NwT KA-Training';
+    document.title = 'Spickzettel · GK KA-Training';
     app.innerHTML = '<a class="back" href="#/">← Alle Themen</a><h1>📐 Formelsammlung</h1>' +
       '<p class="muted">Alles Wichtige zum Rechnen auf einen Blick. Tipp: Ein Screenshot davon ist ein guter Spickzettel zum Lernen (nicht für die KA 😉).</p>' +
       '<div class="fade-in">' + (window.FORMELN_HTML || '') + '</div>';
@@ -337,12 +337,12 @@
 
   /* ---------- Probe-KA ---------- */
   function renderProbe() {
-    document.title = 'Probe-KA · NwT KA-Training';
+    document.title = 'Probe-KA · GK KA-Training';
     // je Thema 1–2 Aufgaben zufällig + gemischte Quizfragen
     var picked = [];
     TOPICS.forEach(function (t) {
       var pool = t.tasks.map(function (task, i) { return { t: t, task: task, i: i }; }).filter(function (x) { return !x.task.noProbe; });
-      var n = t.id === 'hebel' || t.id === 'getriebe' ? 2 : 1;
+      var n = t.id === 'gemeinde' || t.id === 'zyklus' || t.id === 'medien' ? 2 : 1;
       picked = picked.concat(shuffle(pool).slice(0, n));
     });
     var quizPool = [];
@@ -351,7 +351,7 @@
     });
 
     var html = '<a class="back" href="#/">← Alle Themen</a><h1>🎯 Probe-KA</h1>' +
-      '<div class="card"><p><b>So geht\'s:</b> Teil A sind Aufgaben wie in der KA. Löse sie auf Papier, klappe dann die Lösung auf und bewerte dich ehrlich (✓ = 2 Punkte, ½ = 1 Punkt, ✗ = 0). Teil B ist ein gemischtes Quiz.</p>' +
+      '<div class="card"><p><b>So geht\'s:</b> Teil A sind Aufgaben wie in der KA (achte auf die Operatoren!). Beantworte sie auf Papier, klappe dann die Lösung auf und bewerte dich ehrlich (✓ = 2 Punkte, ½ = 1 Punkt, ✗ = 0). Teil B ist ein gemischtes Quiz.</p>' +
       '<p class="muted small" style="margin:0">Bei jedem Neuladen gibt es eine neue Zusammenstellung.</p>' +
       '<div style="margin-top:10px"><button class="btn small" type="button" data-new>🔄 Neue Probe-KA</button></div></div>' +
       '<h2 style="margin-top:22px">Teil A – Aufgaben</h2>' +
